@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaloryCalculation.Infrastructure", "CaloryCalculation.Infrastructure\CaloryCalculation.Infrastructure.csproj", "{B6042FEF-4CCC-4A83-8793-791DEED61D91}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaloryCalculation.Application", "CaloryCalculation.Application\CaloryCalculation.Application.csproj", "{3A1806B0-7AAD-4DB5-AC41-4AD3C26AC54E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaloryCalculation.API", "CaloryCalculation.API\CaloryCalculation.API.csproj", "{6CACE205-48F1-4CAB-AE66-2CAFE8A7BE47}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaloryCalculation.Domain", "CaloryCalculation.Domain\CaloryCalculation.Domain.csproj", "{F197107C-07C9-403E-90CB-C350F141AF25}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B6042FEF-4CCC-4A83-8793-791DEED61D91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6042FEF-4CCC-4A83-8793-791DEED61D91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6042FEF-4CCC-4A83-8793-791DEED61D91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6042FEF-4CCC-4A83-8793-791DEED61D91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A1806B0-7AAD-4DB5-AC41-4AD3C26AC54E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A1806B0-7AAD-4DB5-AC41-4AD3C26AC54E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A1806B0-7AAD-4DB5-AC41-4AD3C26AC54E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A1806B0-7AAD-4DB5-AC41-4AD3C26AC54E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CACE205-48F1-4CAB-AE66-2CAFE8A7BE47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CACE205-48F1-4CAB-AE66-2CAFE8A7BE47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CACE205-48F1-4CAB-AE66-2CAFE8A7BE47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CACE205-48F1-4CAB-AE66-2CAFE8A7BE47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F197107C-07C9-403E-90CB-C350F141AF25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F197107C-07C9-403E-90CB-C350F141AF25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F197107C-07C9-403E-90CB-C350F141AF25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F197107C-07C9-403E-90CB-C350F141AF25}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5F24CB8C-EF0D-4CB4-9B2B-304C2CC7D304}
+	EndGlobalSection
+EndGlobal
