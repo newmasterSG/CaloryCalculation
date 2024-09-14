@@ -1,4 +1,5 @@
 ﻿using CaloryCalculatiom.Domain.Entities.Enums;
+using CaloryCalculation.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace CaloryCalculatiom.Domain.Entities

@@ -7,18 +7,17 @@ namespace CaloryCalculation.API.Configurations
     {
         public static WebApplication Configure(this WebApplication application)
         {
+            application.UseCors("AllowSpecificOrigin");
+
             // Configure the HTTP request pipeline.
 
             application.UseHttpsRedirection();
 
-            application.UseAuthorization();
-
             application.UseAuthentication();
+            application.UseAuthorization();
 
             application.UseSwagger();
             application.UseSwaggerUI();
-
-            application.MapIdentityApi<User>();
 
             application.ConfigureEndpoints();
 
@@ -29,6 +28,7 @@ namespace CaloryCalculation.API.Configurations
         {
             application
                 .MapDailyLogEndpoints()
+                .MapAuthEndpoints()
                 .MapProductEndpoints();
 
             return application;

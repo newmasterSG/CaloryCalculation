@@ -3,6 +3,7 @@ using CaloryCalculation.Application.DTOs.Products;
 using CaloryCalculation.Application.Mappers;
 using CaloryCalculation.Db;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace CaloryCalculation.Application.Handlers.Products
 {
@@ -10,8 +11,10 @@ namespace CaloryCalculation.Application.Handlers.Products
     {
         public async Task<ProductDTO> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
+            var createdUser = await dbContext.Users.FirstOrDefaultAsync(u => u.Id == request.ProductDTO.UserId);
             var newProduct = request.ProductDTO.ToProduct();
-
+            newProduct.CreatedUser = createdUser ?? new CaloryCalculatiom.Domain.Entities.User();
+            
             try
             {
                 await dbContext.Products.AddAsync(newProduct, cancellationToken);

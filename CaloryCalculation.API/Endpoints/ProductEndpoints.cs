@@ -3,6 +3,9 @@ using CaloryCalculation.Application.DTOs.Products;
 using CaloryCalculation.Application.Queries.Products;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CaloryCalculation.API.Endpoints
 {
@@ -21,10 +24,23 @@ namespace CaloryCalculation.API.Endpoints
 
         private static void MapCreateProductEndpoint(this RouteGroupBuilder group)
         {
-            group.MapPost("/", async ([FromBody] CreateProductCommand command, [FromServices] IMediator mediator, CancellationToken cancellationToken) =>
+            group.MapPost("/", async ([FromBody] CreateProductCommand command, ClaimsPrincipal user, [FromServices] IMediator mediator, CancellationToken cancellationToken) =>
             {
+                var userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return Results.Unauthorized();
+                }
+
+                command.ProductDTO.UserId = int.Parse(userId);
+
                 var result = await mediator.Send(command, cancellationToken);
                 return Results.Created($"/products/{result.Id}", result);
+            }).RequireAuthorization(builder =>
+            {
+                builder.RequireAuthenticatedUser();
+                builder.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
             });
         }
 
@@ -34,7 +50,7 @@ namespace CaloryCalculation.API.Endpoints
             {
                 var result = await mediator.Send(new DeleteProductCommand(id), cancellationToken);
                 return result ? Results.NoContent() : Results.NotFound();
-            });
+            }).RequireAuthorization();
         }
 
         private static void MapGetProductEndpoint(this RouteGroupBuilder group)
@@ -43,7 +59,7 @@ namespace CaloryCalculation.API.Endpoints
             {
                 var result = await mediator.Send(new GetProductQuery(id), cancellationToken);
                 return result != null ? Results.Ok(result) : Results.NotFound();
-            });
+            }).RequireAuthorization();
         }
 
         private static void MapGetProductsEndpoint(this RouteGroupBuilder group)
@@ -60,7 +76,7 @@ namespace CaloryCalculation.API.Endpoints
 
                 var results = await mediator.Send(query, cancellationToken);
                 return Results.Ok(results);
-            });
+            }).RequireAuthorization();
         }
 
         private static void MapUpdateProductEndpoint(this RouteGroupBuilder group)
@@ -70,7 +86,7 @@ namespace CaloryCalculation.API.Endpoints
                 command.DTO.Id = id;
                 var result = await mediator.Send(command, cancellationToken);
                 return result != null ? Results.Ok(result) : Results.NotFound();
-            });
+            }).RequireAuthorization();
         }
     }
 }
