@@ -18,8 +18,4 @@
     <ProjectReference Include="..\CaloryCalculation.Infrastructure\CaloryCalculation.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DTOs\Token\" />
-  </ItemGroup>
-
 </Project>

@@ -46,14 +46,7 @@ namespace CaloryCalculation.API.Configurations
                            .AllowAnyMethod();
                 });
             });
-
-            services.Configure<BearerTokenOptions>(IdentityConstants.BearerScheme, options =>
-            {
-                options.Validate(IdentityConstants.BearerScheme);
-            });
-
-
-
+            
             return services;
         }
 
@@ -87,6 +80,7 @@ namespace CaloryCalculation.API.Configurations
         {
             services.AddScoped<IDailyLogService, DailyLogService>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<INutrionService, NutrionService>();
             
             return services;
         }

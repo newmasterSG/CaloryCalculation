@@ -1,4 +1,4 @@
-﻿namespace CaloryCalculation.Application.DTOs;
+﻿namespace CaloryCalculation.Application.DTOs.Token;
 
 public class RefreshTokenDTO
 {

@@ -4,6 +4,7 @@ using CaloryCalculation.Application.Queries.Products;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using CaloryCalculation.Application.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 
@@ -26,7 +27,7 @@ namespace CaloryCalculation.API.Endpoints
         {
             group.MapPost("/", async ([FromBody] CreateProductCommand command, ClaimsPrincipal user, [FromServices] IMediator mediator, CancellationToken cancellationToken) =>
             {
-                var userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                var userId = user.GetUserIdByClaim();
 
                 if (string.IsNullOrEmpty(userId))
                 {

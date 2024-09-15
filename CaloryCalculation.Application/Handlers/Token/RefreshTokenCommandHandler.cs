@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 using CaloryCalculation.Application.Commands.Token;
-using CaloryCalculation.Application.DTOs;
+using CaloryCalculation.Application.DTOs.Token;
 using CaloryCalculation.Application.Interfaces;
 using MediatR;
 

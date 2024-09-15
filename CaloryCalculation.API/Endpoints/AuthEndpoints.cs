@@ -1,7 +1,7 @@
 ﻿
 using CaloryCalculation.Application.Commands.Token;
 using CaloryCalculation.Application.Commands.User;
-using CaloryCalculation.Application.DTOs;
+using CaloryCalculation.Application.DTOs.Token;
 using CaloryCalculation.Application.DTOs.User;
 using CaloryCalculation.Application.Mappers;
 using MediatR;

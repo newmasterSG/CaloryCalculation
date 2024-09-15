@@ -1,4 +1,4 @@
-﻿using CaloryCalculation.Application.DTOs;
+﻿using CaloryCalculation.Application.DTOs.Token;
 using MediatR;
 
 namespace CaloryCalculation.Application.Commands.Token;
