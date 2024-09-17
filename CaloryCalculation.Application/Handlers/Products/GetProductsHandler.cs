@@ -3,7 +3,7 @@ using CaloryCalculation.Application.Mappers;
 using CaloryCalculation.Application.Queries.Products;
 using CaloryCalculation.Db;
 using MediatR;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace CaloryCalculation.Application.Handlers.Products
 {

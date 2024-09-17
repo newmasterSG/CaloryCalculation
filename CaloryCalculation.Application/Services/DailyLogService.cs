@@ -43,6 +43,7 @@ namespace CaloryCalculation.Application.Services
             return await dbContext.DailyLogs.Include(dl => dl.FoodConsumptions)
                                                 .ThenInclude(fc => fc.Product)
                                               .Include(dl => dl.DailyLogExercises)
+                                                .AsSplitQuery()
                                               .FirstOrDefaultAsync(dl => dl.UserId == userId && dl.Date.Date == date.Date, cancellationToken);
         }
     }

@@ -12,7 +12,8 @@ namespace CaloryCalculation.API
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddServices(builder.Configuration);
-
+            builder.Logging.AddConsole()
+                 .AddFilter("Microsoft.AspNetCore.Authentication", LogLevel.Debug);
             var app = builder.Build().Configure();
 
             using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateAsyncScope();

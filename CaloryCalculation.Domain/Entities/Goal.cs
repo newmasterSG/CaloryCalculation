@@ -8,6 +8,7 @@ namespace CaloryCalculatiom.Domain.Entities
         public int UserId { get; set; } 
         public User User { get; set; }
         public GoalType Type { get; set; }
+        public ActivityLevel ActivityLevel { get; set; }
         public double TargetWeight { get; set; } 
         public double DailyCaloriesGoal { get; set; }
         public double DailyProteinGoal { get; set; }
@@ -15,6 +16,5 @@ namespace CaloryCalculatiom.Domain.Entities
         public double DailyFatGoal { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-
     }
 }
