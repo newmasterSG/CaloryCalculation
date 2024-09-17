@@ -81,6 +81,7 @@ namespace CaloryCalculation.API.Configurations
             services.AddScoped<IDailyLogService, DailyLogService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<INutrionService, NutrionService>();
+            services.AddScoped<IGoalService, GoalService>();
             
             return services;
         }

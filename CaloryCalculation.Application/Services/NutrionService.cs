@@ -1,4 +1,5 @@
-﻿using CaloryCalculatiom.Domain.Entities.Enums;
+﻿using CaloryCalculatiom.Domain.Entities;
+using CaloryCalculatiom.Domain.Entities.Enums;
 using CaloryCalculation.Application.Helpers;
 using CaloryCalculation.Application.Interfaces;
 using CaloryCalculation.Db;
@@ -39,5 +40,12 @@ public class NutrionService(CaloryCalculationDbContext dbContext) : INutrionServ
         double dailyCalories = CalculateDailyCalories(user.Weight, user.Height, user.Age, user.Gender, goal.ActivityLevel);
 
         return CalculateMacronutrients(user.Weight, goal.Type, dailyCalories);
+    }
+    
+    public async Task<(double protein, double fat, double carbs)> GetNutritionPlanByUserAsync(User user, ActivityLevel activityLevel, GoalType type)
+    {
+        double dailyCalories = CalculateDailyCalories(user.Weight, user.Height, user.Age, user.Gender, activityLevel);
+
+        return CalculateMacronutrients(user.Weight, type, dailyCalories);
     }
 }

@@ -30,6 +30,7 @@ namespace CaloryCalculation.API.Configurations
                 .MapDailyLogEndpoints()
                 .MapAuthEndpoints()
                 .MapCalculationNutrion()
+                .MapUserEndpoints()
                 .MapProductEndpoints();
 
             return application;
