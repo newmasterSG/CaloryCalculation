@@ -1,5 +1,6 @@
 ﻿using CaloryCalculatiom.Domain.Entities;
 using CaloryCalculation.Application.DTOs.Goal;
+using CaloryCalculation.Application.DTOs.Nutrion;
 using CaloryCalculation.Application.Helpers;
 using CaloryCalculation.Application.Interfaces;
 using CaloryCalculation.Db;
@@ -119,7 +120,7 @@ public class GoalService(CaloryCalculationDbContext dbContext, INutrionService n
         {
             UserId = userId,
             Goal = updateDto.Goal,
-            Weight = (float)user.Weight,
+            Weight = user.Weight,
             ActivityLevel = updateDto.ActivityLevel,
             Gender = updateDto.Gender
         }, cancellationToken);
@@ -133,5 +134,20 @@ public class GoalService(CaloryCalculationDbContext dbContext, INutrionService n
         }
 
         return newGoal;
+    }
+
+    public async Task<NutrionDTO> GetDailyPlanningAsync(int userId, CancellationToken cancellationToken = default)
+    {
+        var goal = await dbContext.Goals.FirstOrDefaultAsync(g => g.UserId == userId && g.StartDate <= DateTime.UtcNow && g.EndDate == null, cancellationToken);
+
+        ArgumentNullException.ThrowIfNull(goal);
+
+        return new NutrionDTO()
+        {
+            DailyCalories = goal.DailyCaloriesGoal,
+            Protein = goal.DailyProteinGoal,
+            Fat = goal.DailyFatGoal,
+            Carb = goal.DailyCarbohydratesGoal
+        };
     }
 }

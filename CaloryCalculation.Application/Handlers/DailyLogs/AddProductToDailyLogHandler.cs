@@ -15,10 +15,12 @@ namespace CaloryCalculation.Application.Handlers.DailyLogs
             {
                 throw new ArgumentException("Invalid MealType value", nameof(request.DTO.MealType));
             }
+            
+            ArgumentNullException.ThrowIfNull(request.DTO.UserId);
 
             var mealType = (MealType)request.DTO.MealType;
 
-            await _dailyLogService.AddProductToDailyLogAsync(request.DTO.UserId, request.DTO.ProductId, request.DTO.Quantity, request.DTO.Date, mealType, cancellationToken);
+            await _dailyLogService.AddProductToDailyLogAsync(request.DTO.UserId ?? 0, request.DTO.ProductId, request.DTO.Quantity, request.DTO.Date, mealType, cancellationToken);
         }
     }
 }
