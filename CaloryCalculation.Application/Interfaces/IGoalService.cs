@@ -1,5 +1,6 @@
 ﻿using CaloryCalculatiom.Domain.Entities;
 using CaloryCalculation.Application.DTOs.Goal;
+using CaloryCalculation.Application.DTOs.Nutrion;
 
 namespace CaloryCalculation.Application.Interfaces;
 
@@ -13,4 +14,6 @@ public interface IGoalService
 
     Task<Goal> UpdateGoalByUserIdAsync(int userId, GoalUpdateDto updateDto,
         CancellationToken cancellationToken = default);
+
+    Task<NutrionDTO> GetDailyPlanningAsync(int userId, CancellationToken cancellationToken = default);
 }

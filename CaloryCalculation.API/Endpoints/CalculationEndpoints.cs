@@ -26,9 +26,9 @@ public static class CalculationEndpoints
     
     private static void MapCalculationMacro(this RouteGroupBuilder group)
     {
-        group.MapGet("/byUser", async ([FromServices] IMediator mediator, ClaimsPrincipal user, CancellationToken cancellationToken) =>
+        group.MapGet("/getNutrionByUser", async ([FromServices] IMediator mediator, ClaimsPrincipal user, CancellationToken cancellationToken) =>
         {
-            var command = new CalculateNutrionCommand(user.GetUserIdByClaim());
+            var command = new CalculateNutrionByUserIdQuery(user.GetUserIdByClaim());
             
             var result = await mediator.Send(command, cancellationToken);
 
