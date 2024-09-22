@@ -7,5 +7,8 @@ namespace CaloryCalculation.Application.Interfaces
     {
         Task AddProductToDailyLogAsync(int userId, int productId, double quantity, DateTime date, MealType mealType, CancellationToken cancellationToken = default);
         Task<DailyLog?> GetDailyLogForUserAsync(int userId, DateTime date, CancellationToken cancellationToken = default);
+
+        Task<bool> DeleteProductFromDailyLogByUserIdDateAsync(int userId, int productId, MealType mealType,
+            DateTime creationDate, CancellationToken cancellationToken = default);
     }
 }

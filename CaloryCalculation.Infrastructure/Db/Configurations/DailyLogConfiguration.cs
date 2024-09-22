@@ -15,6 +15,7 @@ namespace CaloryCalculation.Infrastructure.Db.Configurations
 
             builder.HasMany(dl => dl.FoodConsumptions)
                 .WithOne(fc => fc.DailyLog)
+                .HasForeignKey(fc => fc.DailyLogId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

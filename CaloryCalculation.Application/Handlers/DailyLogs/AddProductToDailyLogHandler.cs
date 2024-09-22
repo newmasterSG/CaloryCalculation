@@ -11,7 +11,7 @@ namespace CaloryCalculation.Application.Handlers.DailyLogs
 
         public async Task Handle(AddProductToDailyLogCommand request, CancellationToken cancellationToken)
         {
-            if (!Enum.IsDefined(typeof(MealType), request.DTO.MealType))
+            if (!Enum.IsDefined(typeof(MealType), (byte)request.DTO.MealType))
             {
                 throw new ArgumentException("Invalid MealType value", nameof(request.DTO.MealType));
             }
