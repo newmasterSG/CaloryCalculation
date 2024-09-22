@@ -46,5 +46,23 @@ namespace CaloryCalculation.Application.Services
                                                 .AsSplitQuery()
                                               .FirstOrDefaultAsync(dl => dl.UserId == userId && dl.Date.Date == date.Date, cancellationToken);
         }
+
+        public async Task<bool> DeleteProductFromDailyLogByUserIdDateAsync(int userId, int productId, MealType mealType,
+            DateTime creationDate, CancellationToken cancellationToken = default)
+        {
+            var dailylog =
+                await GetDailyLogForUserAsync(userId, creationDate, cancellationToken);
+            
+            ArgumentNullException.ThrowIfNull(dailylog);
+
+            var foodcosumption =
+                dailylog.FoodConsumptions.FirstOrDefault(fc => fc.MealType == mealType && fc.FoodItemId == productId);
+            
+            ArgumentNullException.ThrowIfNull(foodcosumption);
+
+            dailylog.FoodConsumptions.Remove(foodcosumption);
+
+            return await dbContext.SaveChangesAsync(cancellationToken) >= 1;
+        }
     }
 }

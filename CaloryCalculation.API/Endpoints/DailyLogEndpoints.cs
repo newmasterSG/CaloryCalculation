@@ -20,6 +20,7 @@ namespace CaloryCalculation.API.Endpoints
             });
             
             group.MapPostDailyLogEndpoint();
+            group.MapDeleteDailyLogEndpoint();
 
             return routes;
         }
@@ -39,6 +40,23 @@ namespace CaloryCalculation.API.Endpoints
                 
                 await mediator.Send(command, cancellationToken);
                 return Results.Ok();
+            });
+        }
+
+        private static void MapDeleteDailyLogEndpoint(this RouteGroupBuilder group)
+        {
+            group.MapDelete("/delete-product", async ([FromBody]DeleteProductFromDailyLogByUserCommand command, ClaimsPrincipal user, [FromServices]IMediator mediator, CancellationToken cancellationToken) =>
+            {
+                var userId = user.GetUserIdByClaim();
+
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return Results.Unauthorized();
+                }
+
+                command.Dto.UserId = int.Parse(userId);
+                
+                return Results.Ok(await mediator.Send(command, cancellationToken));
             });
         }
     }
