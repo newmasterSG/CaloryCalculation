@@ -1,5 +1,6 @@
 ﻿using CaloryCalculatiom.Domain.Entities;
 using CaloryCalculatiom.Domain.Entities.Enums;
+using CaloryCalculation.Application.DTOs.DailyLogs;
 
 namespace CaloryCalculation.Application.Interfaces
 {
@@ -10,5 +11,8 @@ namespace CaloryCalculation.Application.Interfaces
 
         Task<bool> DeleteProductFromDailyLogByUserIdDateAsync(int userId, int productId, MealType mealType,
             DateTime creationDate, CancellationToken cancellationToken = default);
+
+        Task<DailyLogDTO?> GetDailyLogForUserAsync(GetDailyLogUserDTO getDailyLogUserDto,
+            CancellationToken cancellationToken = default);
     }
 }

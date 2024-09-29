@@ -1,6 +1,8 @@
 ﻿using System.Security.Claims;
 using CaloryCalculation.Application.Commands.DailyLogs;
+using CaloryCalculation.Application.DTOs.DailyLogs;
 using CaloryCalculation.Application.Helpers;
+using CaloryCalculation.Application.Queries.DailyLog;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
@@ -21,8 +23,39 @@ namespace CaloryCalculation.API.Endpoints
             
             group.MapPostDailyLogEndpoint();
             group.MapDeleteDailyLogEndpoint();
-
+            group.MapGetDailyLogEndpoint();
+            
             return routes;
+        } 
+
+        private static void MapGetDailyLogEndpoint(this RouteGroupBuilder group)
+        {
+            group.MapGet("/by-user", async (string date, ClaimsPrincipal user, [FromServices]IMediator mediator, CancellationToken cancellationToken) =>
+            {
+                var userId = user.GetUserIdByClaim();
+
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return Results.Unauthorized();
+                }
+                var parsedDate = DateTime.Parse(date);
+                if (parsedDate.Kind == DateTimeKind.Unspecified)
+                {
+                    parsedDate = DateTime.SpecifyKind(parsedDate, DateTimeKind.Utc);
+                }
+                
+                var Dto = new GetDailyLogUserDTO
+                {
+                    Date = parsedDate,
+                };
+
+                var command = new GetDailyLogByUserQuery(Dto);
+                
+                command.Dto.UserId = int.Parse(userId);
+                
+                var dto = await mediator.Send(command, cancellationToken);
+                return Results.Ok(dto);
+            });
         }
 
         private static void MapPostDailyLogEndpoint(this RouteGroupBuilder group)
