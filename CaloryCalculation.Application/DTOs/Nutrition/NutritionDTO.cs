@@ -1,6 +1,6 @@
 ﻿namespace CaloryCalculation.Application.DTOs.Nutrion;
 
-public class NutrionDTO
+public class NutritionDTO
 {
     public double Protein { get; set; }
     public double Fat { get; set; }

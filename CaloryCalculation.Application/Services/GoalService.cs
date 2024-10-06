@@ -136,13 +136,16 @@ public class GoalService(CaloryCalculationDbContext dbContext, INutrionService n
         return newGoal;
     }
 
-    public async Task<NutrionDTO> GetDailyPlanningAsync(int userId, CancellationToken cancellationToken = default)
+    public async Task<NutritionDTO> GetDailyPlanningAsync(int userId, CancellationToken cancellationToken = default)
     {
         var goal = await dbContext.Goals.FirstOrDefaultAsync(g => g.UserId == userId && g.StartDate <= DateTime.UtcNow && g.EndDate == null, cancellationToken);
 
-        ArgumentNullException.ThrowIfNull(goal);
+        if (goal is null)
+        {
+            return new NutritionDTO();
+        }
 
-        return new NutrionDTO()
+        return new NutritionDTO()
         {
             DailyCalories = goal.DailyCaloriesGoal,
             Protein = goal.DailyProteinGoal,
