@@ -15,6 +15,8 @@
 
         public double Protein { get; set; } = 0;
 
+        public double PerGram { get; set; } = 100;
+
         public int CreatedUserId { get; set; }
 
         public virtual User CreatedUser { get; set; }

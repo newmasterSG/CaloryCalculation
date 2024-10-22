@@ -2,6 +2,7 @@
 using CaloryCalculatiom.Domain.Entities.Enums;
 using CaloryCalculation.Application.DTOs.DailyLogs;
 using CaloryCalculation.Application.DTOs.FoodConsumptions;
+using CaloryCalculation.Application.DTOs.Nutrion;
 using CaloryCalculation.Application.DTOs.Products;
 using CaloryCalculation.Application.Interfaces;
 using CaloryCalculation.Db;
@@ -97,22 +98,31 @@ namespace CaloryCalculation.Application.Services
         
         private void AddProductToMeal(DailyLogDTO dto, FoodConsumption fc)
         {
-            var meal = dto.FoodConsumption.FirstOrDefault(x => x.MealType == (int)fc.MealType);
-            if (meal == null)
+            var mealDictionary = dto.FoodConsumption.ToDictionary(x => x.MealType);
+
+            if (!mealDictionary.TryGetValue((int)fc.MealType, out var meal))
             {
-                meal = new FoodConsumptionDTO { MealType = (int)fc.MealType, Products = new List<ProductDTO>(),};
+                meal = new FoodConsumptionDTO { MealType = (int)fc.MealType, Products = new List<ProductDTO>() };
                 dto.FoodConsumption.Add(meal);
             }
-            
-            meal.Products.Add(new ProductDTO
+
+            meal.Products.Add(CalculateTotalNutrition(fc));
+        }
+        
+        private ProductDTO CalculateTotalNutrition(FoodConsumption fc)
+        {
+
+            var productDto = new ProductDTO
             {
                 Id = fc.Product.Id,
                 Name = fc.Product.Name,
-                Protein = fc.Product.Protein,
-                Fat = fc.Product.Fat,
-                Calories = fc.Product.Calories,
-                Carb = fc.Product.Сarbohydrate
-            });
+                Calories = (fc.Product.Calories / fc.Product.PerGram) * fc.Quantity,
+                Protein = (fc.Product.Protein / fc.Product.PerGram) * fc.Quantity,
+                Fat = (fc.Product.Fat / fc.Product.PerGram) * fc.Quantity,
+                Carb = (fc.Product.Сarbohydrate / fc.Product.PerGram) * fc.Quantity
+            };
+
+            return productDto;
         }
     }
 }

@@ -14,7 +14,8 @@ namespace CaloryCalculation.Application.Mappers
                 Protein = createProductDto.Protein,
                 Fat = createProductDto.Fat,
                 Сarbohydrate = createProductDto.Carb,
-                Calories = CalculationHelper.CalculateCalories(createProductDto.Protein, createProductDto.Fat, createProductDto.Carb)
+                Calories = CalculationHelper.CalculateCalories(createProductDto.Protein, createProductDto.Fat, createProductDto.Carb),
+                PerGram = createProductDto.PerGram,
             };
         }
 
@@ -40,7 +41,8 @@ namespace CaloryCalculation.Application.Mappers
                 Protein = product.Protein,
                 Fat = product.Fat,
                 Carb = product.Сarbohydrate,
-                Calories = product.Calories
+                Calories = product.Calories,
+                Gram = product.PerGram,
             };
         }
 

@@ -10,6 +10,8 @@
         public double Fat { get; set; }
 
         public double Carb { get; set; }
+        
+        public double Gram { get; set; }
 
         public double Calories { get; set; }
     }

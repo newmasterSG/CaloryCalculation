@@ -15,5 +15,5 @@ public interface IGoalService
     Task<Goal> UpdateGoalByUserIdAsync(int userId, GoalUpdateDto updateDto,
         CancellationToken cancellationToken = default);
 
-    Task<NutrionDTO> GetDailyPlanningAsync(int userId, CancellationToken cancellationToken = default);
+    Task<NutritionDTO> GetDailyPlanningAsync(int userId, CancellationToken cancellationToken = default);
 }

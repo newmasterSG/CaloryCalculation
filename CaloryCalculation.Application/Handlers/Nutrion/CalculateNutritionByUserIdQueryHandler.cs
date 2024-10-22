@@ -5,9 +5,9 @@ using MediatR;
 
 namespace CaloryCalculation.Application.Handlers.Nutrion;
 
-public class CalculateNutritionByUserIdQueryHandler(IGoalService goalService) : IRequestHandler<CalculateNutrionByUserIdQuery, NutrionDTO>
+public class CalculateNutritionByUserIdQueryHandler(IGoalService goalService) : IRequestHandler<CalculateNutrionByUserIdQuery, NutritionDTO>
 {
-    public async Task<NutrionDTO> Handle(CalculateNutrionByUserIdQuery request, CancellationToken cancellationToken)
+    public async Task<NutritionDTO> Handle(CalculateNutrionByUserIdQuery request, CancellationToken cancellationToken)
     {
         if (!int.TryParse(request.UserId, out var id))
         {
