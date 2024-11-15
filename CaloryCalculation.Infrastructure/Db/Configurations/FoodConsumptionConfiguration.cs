@@ -14,12 +14,12 @@ namespace CaloryCalculation.Infrastructure.Db.Configurations
             builder.HasOne(fc => fc.DailyLog)
                 .WithMany(dl => dl.FoodConsumptions)
                 .HasForeignKey(fc => fc.DailyLogId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(fc => fc.Product)
                 .WithMany(p => p.FoodConsumptions)
                 .HasForeignKey(fc => fc.FoodItemId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

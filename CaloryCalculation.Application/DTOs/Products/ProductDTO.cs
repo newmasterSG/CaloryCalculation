@@ -14,5 +14,7 @@
         public double Gram { get; set; }
 
         public double Calories { get; set; }
+        
+        public double? Quantity { get; set; }
     }
 }

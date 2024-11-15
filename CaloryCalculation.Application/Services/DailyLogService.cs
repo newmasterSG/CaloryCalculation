@@ -87,11 +87,11 @@ namespace CaloryCalculation.Application.Services
             ArgumentNullException.ThrowIfNull(dailylog);
 
             var foodcosumption =
-                dailylog.FoodConsumptions.FirstOrDefault(fc => fc.MealType == mealType && fc.FoodItemId == productId);
+                dbContext.FoodConsumptions.FirstOrDefault(fc => fc.MealType == mealType && fc.FoodItemId == productId && dailylog.Id == dailylog.Id);
             
             ArgumentNullException.ThrowIfNull(foodcosumption);
 
-            dailylog.FoodConsumptions.Remove(foodcosumption);
+            dbContext.FoodConsumptions.Remove(foodcosumption);
 
             return await dbContext.SaveChangesAsync(cancellationToken) >= 1;
         }
@@ -119,10 +119,43 @@ namespace CaloryCalculation.Application.Services
                 Calories = (fc.Product.Calories / fc.Product.PerGram) * fc.Quantity,
                 Protein = (fc.Product.Protein / fc.Product.PerGram) * fc.Quantity,
                 Fat = (fc.Product.Fat / fc.Product.PerGram) * fc.Quantity,
-                Carb = (fc.Product.Сarbohydrate / fc.Product.PerGram) * fc.Quantity
+                Carb = (fc.Product.Сarbohydrate / fc.Product.PerGram) * fc.Quantity,
+                Quantity = fc.Quantity,
             };
 
             return productDto;
+        }
+        
+        public async Task<int> GetLongestStreakAsync(int userId, CancellationToken cancellationToken = default)
+        {
+            var dates = await dbContext.DailyLogs
+                .Where(log => log.UserId == userId)
+                .OrderBy(log => log.Date)
+                .Select(log => log.Date.Date) 
+                .ToListAsync(cancellationToken);
+
+            if (dates.Count == 0)
+                return 0;
+
+            int longestStreak = 1;
+            int currentStreak = 1;
+            
+            for (int i = 1; i < dates.Count; i++)
+            {
+                if ((dates[i] - dates[i - 1]).Days == 1)
+                {
+                    currentStreak++;
+                }
+                else
+                {
+                    longestStreak = Math.Max(longestStreak, currentStreak);
+                    currentStreak = 1;
+                }
+            }
+            
+            longestStreak = Math.Max(longestStreak, currentStreak);
+
+            return longestStreak;
         }
     }
 }
