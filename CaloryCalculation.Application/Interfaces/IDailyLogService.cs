@@ -14,5 +14,7 @@ namespace CaloryCalculation.Application.Interfaces
 
         Task<DailyLogDTO?> GetDailyLogForUserAsync(GetDailyLogUserDTO getDailyLogUserDto,
             CancellationToken cancellationToken = default);
+
+        Task<int> GetLongestStreakAsync(int userId, CancellationToken cancellationToken = default);
     }
 }

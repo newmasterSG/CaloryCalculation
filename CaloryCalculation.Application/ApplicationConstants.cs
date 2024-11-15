@@ -33,5 +33,10 @@
         /// Very high activity (twice-daily training or physical labor): Very intense physical activity or manual labor.
         /// </summary>
         public const double VeryHighActivity = 1.9;
+        
+        
+        public const double MinProteinThreshold = 10;
+        public const double MinFatThreshold = 5;
+        public const double MinCarbohydrateThreshold = 15;
     }
 }
